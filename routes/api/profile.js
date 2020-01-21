@@ -2,6 +2,8 @@ const express = require("express");
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const { check, validationResult } = require("express-validator");
+
+const User = require("../../models/User");
 const router = express.Router();
 
 //@route  GET api/Profile/me
@@ -30,7 +32,7 @@ router.post(
   [
     auth,
     [
-      check("Status is required")
+      check("status", "Status is required")
         .not()
         .isEmpty(),
       check("skills", "Skills are required")
@@ -93,5 +95,55 @@ router.post(
     }
   }
 );
+
+//@route  GET api/Profile
+//@desc    Get all profiles
+//@access   Public
+
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    res.json(profiles);
+  } catch (error) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route  GET api/Profile/user/:user_id
+//@desc    Get profile by user ID
+//@access   Public
+
+router.get("/user/:user_id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id
+    }).populate("user", ["name", "avatar"]);
+
+    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+    res.json(profile);
+  } catch (error) {
+    console.log(error.message);
+    if (error.kind == "ObjectId") {
+      return res.status(400).json({ msg: "Profile not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route Delete api/Profile
+//@desc    Delete  profile, user & posts
+//@access   Private
+
+router.delete("/", auth, async (req, res) => {
+  try {
+    await Profile.findOneAndRemove({ user: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
+    res.json({ msg: "User deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
