@@ -42,7 +42,7 @@ router.post(
     try {
       // See if user exists
       let user = await User.findOne({ email });
-      console.log(password);
+
       if (!user) {
         return res
           .status(400)
@@ -55,7 +55,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "Invalid Credentials" }] });
+          .json({ errors: [{ msg: "Invalid Credentials!!" }] });
       }
       // Return jsonwebtokem
 
@@ -64,7 +64,10 @@ router.post(
           id: user.id
         }
       };
-      jwt.sign(payload, keys.jwtSecret, { expiresIn: 360000 });
+      jwt.sign(payload, keys.jwtSecret, { expiresIn: 360000 }, (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      });
     } catch (err) {
       console.log(err.message);
 
