@@ -4,7 +4,10 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layput/Alert";
 import Navbar from "./components/layput/Navbar";
-import { Landing } from "./components/layput/Landing";
+import Dashboard from "./components/dashboard/Dashboard";
+import CreateProfile from "./components/profile-form/CreateProfile";
+import Landing from "./components/layput/Landing";
+import ProtectRoute from "./components/protectRouting/ProtectRoute";
 import "./App.css";
 
 //Redux
@@ -32,6 +35,12 @@ const App = () => {
             <Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <ProtectRoute exact path="/dashboard" component={Dashboard} />
+              <ProtectRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
             </Switch>
           </section>
         </Fragment>

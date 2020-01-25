@@ -20,6 +20,7 @@ router.get("/me", auth, async (req, res) => {
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile for this user" });
     }
+    res.json(profile);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -106,7 +107,7 @@ router.get("/", async (req, res) => {
   try {
     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
     res.json(profiles);
-  } catch (error) {
+  } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
