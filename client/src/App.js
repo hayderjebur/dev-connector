@@ -7,6 +7,8 @@ import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile-form/CreateProfile";
 import EditProfile from "./components/profile-form/EditProfile";
+import AddExperience from "./components/profile-form/AddExperience";
+import AddEducation from "./components/profile-form/AddEducation";
 import Landing from "./components/layout/Landing";
 import ProtectRoute from "./components/protectRouting/ProtectRoute";
 import "./App.css";
@@ -46,6 +48,16 @@ const App = () => {
                 exact
                 path="/edit-profile"
                 component={EditProfile}
+              />
+              <ProtectRoute
+                exact
+                path="/add-experience"
+                component={AddExperience}
+              />
+              <ProtectRoute
+                exact
+                path="/add-education"
+                component={AddEducation}
               />
             </Switch>
           </section>
