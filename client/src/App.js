@@ -2,11 +2,12 @@ import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/auth/login";
 import Register from "./components/auth/Register";
-import Alert from "./components/layput/Alert";
-import Navbar from "./components/layput/Navbar";
+import Alert from "./components/layout/Alert";
+import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile-form/CreateProfile";
-import Landing from "./components/layput/Landing";
+import EditProfile from "./components/profile-form/EditProfile";
+import Landing from "./components/layout/Landing";
 import ProtectRoute from "./components/protectRouting/ProtectRoute";
 import "./App.css";
 
@@ -40,6 +41,11 @@ const App = () => {
                 exact
                 path="/create-profile"
                 component={CreateProfile}
+              />
+              <ProtectRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
               />
             </Switch>
           </section>
