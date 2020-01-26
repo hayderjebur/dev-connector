@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import Moment from "react-moment";
 import moment from "moment";
 import { connect } from "react-redux";
-//import { deleteExperience } from "../../actions/profile";
+import { deleteExperience } from "../../actions/profile";
 
 const Experience = ({ experience, deleteExperience }) => {
   //Display field of experieces
@@ -21,7 +21,7 @@ const Experience = ({ experience, deleteExperience }) => {
       </td>
       <td>
         <button
-          //onClick={() => deleteExperience(exp._id)}
+          onClick={() => deleteExperience(exp._id)}
           className="btn btn-danger"
         >
           Delete
@@ -49,4 +49,4 @@ const Experience = ({ experience, deleteExperience }) => {
   );
 };
 
-export default connect(null)(Experience);
+export default connect(null, { deleteExperience })(Experience);
