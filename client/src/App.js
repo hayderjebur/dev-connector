@@ -12,6 +12,8 @@ import AddEducation from "./components/profile-form/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
 import Landing from "./components/layout/Landing";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 import ProtectRoute from "./components/protectRouting/ProtectRoute";
 import "./App.css";
 
@@ -63,6 +65,8 @@ const App = () => {
                 path="/add-education"
                 component={AddEducation}
               />
+              <ProtectRoute exact path="/posts" component={Posts} />
+              <ProtectRoute exact path="/posts/:id" component={Post} />
             </Switch>
           </section>
         </Fragment>
